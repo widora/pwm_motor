@@ -1,1 +1,16 @@
-A test program using PWM to control motor.
+It consists of three independ C programs.
+
+1. pwm_motor.c  (Local Socket Server)
+	Receive command from Local Socket Client and ajust speed(through PWM) and direction for the motor accordingly.
+	Send PWM value of the motor to the actuator(SG) through message queue.
+
+2. mouse_motorctl.c  (Local Socket Client)
+	Use mouse to ajust PWM threshold and send the value to pwm_motor.c throuhg local socket.
+
+3. pwm_actuator.c
+	Receive command from message queue and set PWM for the actuator(SG).
+
+4. ipc_ctlmotor.c
+	A test for local socket client contorl
+
+
