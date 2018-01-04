@@ -18,7 +18,8 @@ refer to:  blog.csdn.net/qianrushizaixian/article/details/46536005
 #include <fcntl.h>
 #include <math.h> //-- -lm
 #include <stdbool.h> //bool
-#include "/home/midas/ctest/kmods/soopwm/sooall_pwm.h"
+//#include "/home/midas/ctest/kmods/soopwm/sooall_pwm.h"
+#include <sooall_pwm.h>
 #include "msg_common.h"
 #define PWM_DEV "/dev/sooall_pwm"
 

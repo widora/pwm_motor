@@ -183,6 +183,7 @@ void initOledTimer(void)
 }
 
 
+#if 0  //--------------- for OLED -------------------------
 /*-----------------------------------------------------
     routine process for Timer in OLED program
 -------------------------------------------------------*/
@@ -242,5 +243,8 @@ void sigHndlOledTimer(int signo)
     		sendMsgQue(g_msg_id,MSG_TYPE_WAIT_CC1101,"wait cc1101");
 
 }
+#endif  //--------------------------------------------
+
+
 
 #endif

@@ -94,7 +94,8 @@ static int create_IPCSock_Server(struct struct_msg_dat *pmsg_dat)
 	int i;
 	int clt_fd;//client IPC sock fd
 	int len;
-	int nread,nwrite;
+//	int nread;
+	int nwrite;
 	int ret;
 
 	//------ reset msg_data
@@ -198,11 +199,12 @@ static int create_IPCSock_Server(struct struct_msg_dat *pmsg_dat)
 1. select to readable IPCSock Clients fd
 2. read msg from the selected fd and stroe in the shared msg_dat
 3. if disconnected client is detected, handle it then.
+
 -----------------------------------------------------------*/
 static int read_IPCSock_Clients(struct struct_msg_dat *pmsg_dat)
 {
 	int i;
-	int nclients;
+//	int nclients;
 	int nselect;
 	int nread;
 	struct timeval wait_tv; //select() wait time
@@ -242,7 +244,7 @@ static int read_IPCSock_Clients(struct struct_msg_dat *pmsg_dat)
 				if( struct_SockClients[i].sock_fd == 0) //skip unvalid entry
 					continue;
 				if(FD_ISSET( struct_SockClients[i].sock_fd, &set_SockClients )){
-					printf("read_IPCSock_Clients(): Socket client fd=%d is selected. \n",struct_SockClients[i]);
+					printf("read_IPCSock_Clients(): Socket client fd=%d is selected. \n",struct_SockClients[i].sock_fd);
 					//---TODO: lock msg_dat before read.....
 
 					//---- read msg_dat from IPC Sock Client and store in shared msg_dat----
@@ -250,7 +252,7 @@ static int read_IPCSock_Clients(struct struct_msg_dat *pmsg_dat)
 
 					//----- check if it's from disconnected client  -----
 					if(nselect==1 && nread==0){
-						printf("read_IPCSock_Clients(): Socket client fd=%d is found disconnected!. \n",struct_SockClients[i]);
+						printf("read_IPCSock_Clients(): Socket client fd=%d is found disconnected!. \n",struct_SockClients[i].sock_fd);
 						struct_SockClients[i].sock_fd=0; //set 0 as empty the entry
 						count_SockClients--; //decrease count
 					}
@@ -271,6 +273,8 @@ static int read_IPCSock_Clients(struct struct_msg_dat *pmsg_dat)
 
 		}
 	}//end while()
+
+	return 0;
 }
 
 
@@ -287,7 +291,8 @@ static int create_IPCSock_Client(struct struct_msg_dat *pmsg_dat)
         struct sockaddr_un svr_unaddr;
         int clt_fd;//connecting client FD
         int ret;
-        int nwrite,nread;
+        int nwrite;
+	int nread;
 //	struct tcp_info tcpInfo;
 //	int len=sizeof(tcpInfo);
 	struct sigaction sigact;//signal action
@@ -387,6 +392,8 @@ static int create_IPCSock_Client(struct struct_msg_dat *pmsg_dat)
 
         //----- 6. complete session
         close(clt_fd);
+ 
+  return 0;
 }
 
 #endif

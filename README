@@ -1,4 +1,4 @@
-It consists of three independ C programs.
+It consists of following independ C programs.
 
 1. pwm_motor.c  (Local Socket Server)
 	Receive command from Local Socket Client and ajust speed(through PWM) and direction for the motor accordingly.
@@ -14,3 +14,6 @@ It consists of three independ C programs.
 	A test for local socket client contorl
 
 
+Note:
+ 	1. Run pwm_actuator first, then pwm_motor and ipc_ctlmotor(or mouse_ctlmotor) to test.
+	2. See the block diagram pciture for reference.
